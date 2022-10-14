@@ -1,11 +1,13 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import RegisterInput from "../Input/RegisterInput";
+import * as Yup from "yup";
 
 const userInfos = {
-  fisrt_name: "",
+  first_name: "",
   last_name: "",
   password: "",
+  email: "",
   bYear: new Date().getFullYear(),
   bMonth: new Date().getMonth(),
   bDay: new Date().getDate(),
@@ -14,7 +16,16 @@ const userInfos = {
 
 const RegisterForm = () => {
   const [user, setUser] = useState(userInfos);
-  const { fisrt_name, last_name, password, bYear, bMonth, bDay, gender } = user;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    bYear,
+    bMonth,
+    bDay,
+    gender,
+  } = user;
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
@@ -26,7 +37,29 @@ const RegisterForm = () => {
     return new Date(bYear, bMonth, 0).getDate();
   };
   const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
-  console.log(days);
+  const registerValidation = Yup.object({
+    first_name: Yup.string()
+      .required("Please enter your name.")
+      .min(2, "First name must be between 2 and 16 characters.")
+      .max(16, "First name must be between 2 and 16 characters.")
+      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+    last_name: Yup.string()
+      .required("Please enter your name.")
+      .min(2, "First name must be between 2 and 16 characters.")
+      .max(16, "First name must be between 2 and 16 characters.")
+      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+    email: Yup.string()
+      .required(
+        "You'll need this when you login and if you ever need to reset your password"
+      )
+      .email("Enter a valid email address"),
+    password: Yup.string()
+      .required(
+        "Enter a combination of at least six number, letters and punctuation marks(such as ! and &)"
+      )
+      .min(6, "Password must be atleast 6 characters")
+      .max(36, "Password can't be more than 36 characters"),
+  });
   return (
     <div className="blur">
       <div className="register">
@@ -35,7 +68,20 @@ const RegisterForm = () => {
           <span>Signup</span>
           <span>it's quick and easy</span>
         </div>
-        <Formik>
+        <Formik
+          enableReinitialize
+          initialValues={{
+            first_name,
+            last_name,
+            password,
+            email,
+            bYear,
+            bMonth,
+            bDay,
+            gender,
+          }}
+          validationSchema={registerValidation}
+        >
           {(formik) => (
             <Form className="register_form">
               <div className="reg_line">
