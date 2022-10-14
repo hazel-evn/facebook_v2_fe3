@@ -6,18 +6,27 @@ const userInfos = {
   fisrt_name: "",
   last_name: "",
   password: "",
-  bYear: "",
-  bMonth: "",
-  bDay: "",
+  bYear: new Date().getFullYear(),
+  bMonth: new Date().getMonth(),
+  bDay: new Date().getDate(),
   gender: "",
 };
 
 const RegisterForm = () => {
   const [user, setUser] = useState(userInfos);
+  const { fisrt_name, last_name, password, bYear, bMonth, bDay, gender } = user;
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+  const yearTemp = new Date().getFullYear();
+  const year = Array.from(new Array(108), (val, index) => yearTemp - index);
+  const months = Array.from(new Array(12), (val, index) => index + 1);
+  const getDays = () => {
+    return new Date(bYear, bMonth, 0).getDate();
+  };
+  const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
+  console.log(days);
   return (
     <div className="blur">
       <div className="register">
@@ -61,13 +70,27 @@ const RegisterForm = () => {
                 </div>
                 <div className="reg_grid">
                   <select name="bDay">
-                    <option>15</option>
+                    {days.map((day, index) => (
+                      <option key={index}>{day}</option>
+                    ))}
                   </select>
-                  <select name="bMonth">
-                    <option>15</option>
+                  <select
+                    name="bMonth"
+                    value={bMonth}
+                    onChange={handleRegisterChange}
+                  >
+                    {months.map((month, index) => (
+                      <option key={index}>{month}</option>
+                    ))}
                   </select>
-                  <select name="bYear">
-                    <option>15</option>
+                  <select
+                    name="bYear"
+                    value={bYear}
+                    onChange={handleRegisterChange}
+                  >
+                    {year.map((year, index) => (
+                      <option key={index}>{year}</option>
+                    ))}
                   </select>
                 </div>
               </div>
