@@ -87,25 +87,29 @@ const RegisterForm = () => {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder={"First name"}
+                  placeholder="First name"
                   name="first_name"
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
                   type="text"
-                  placeholder={"Last name"}
+                  placeholder="Surname"
                   name="last_name"
                   onChange={handleRegisterChange}
                 />
+              </div>
+              <div className="reg_line">
                 <RegisterInput
-                  type="email"
-                  placeholder={"Mobile number or email address"}
+                  type="text"
+                  placeholder="Mobile number or email address"
                   name="email"
                   onChange={handleRegisterChange}
                 />
+              </div>
+              <div className="reg_line">
                 <RegisterInput
                   type="password"
-                  placeholder={"New password"}
+                  placeholder="New password"
                   name="password"
                   onChange={handleRegisterChange}
                 />

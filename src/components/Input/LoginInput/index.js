@@ -1,16 +1,27 @@
 import React from "react";
 import "./style.css";
 import { ErrorMessage, useField } from "formik";
+import { useMediaQuery } from "react-responsive";
 
 const LoginInput = ({ placeholder, bottom, ...props }) => {
   const [field, meta] = useField(props);
+  const deskTopView = useMediaQuery({
+    query: "(min-width: 850px)",
+  });
   return (
     <div className="input_wrap">
       {meta.touched && meta.error && !bottom && (
-        <div className="input_error" style={{ transform: "translateY(3px)" }}>
+        <div
+          className={
+            deskTopView ? "input_error input_error_desktop" : "input_error"
+          }
+          style={{ transform: "translateY(3px)" }}
+        >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
-            <div className="error_arrow_top"></div>
+            <div
+              className={deskTopView ? "error_arrow_left" : "error_arrow_top"}
+            ></div>
           )}
         </div>
       )}
@@ -24,15 +35,27 @@ const LoginInput = ({ placeholder, bottom, ...props }) => {
         {...props}
       />
       {meta.touched && meta.error && bottom && (
-        <div className="input_error" style={{ transform: "translateY(1px)" }}>
+        <div
+          className={
+            deskTopView ? "input_error input_error_desktop" : "input_error"
+          }
+          style={{ transform: "translateY(1px)" }}
+        >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
-            <div className="error_arrow_bottom"></div>
+            <div
+              className={
+                deskTopView ? "error_arrow_left" : "error_arrow_bottom"
+              }
+            ></div>
           )}
         </div>
       )}
       {meta.touched && meta.error && (
-        <i className="error_icon" style={{ top: `${!bottom && "63%"}` }}></i>
+        <i
+          className="error_icon"
+          style={{ top: `${!bottom && !deskTopView && "63%"}` }}
+        ></i>
       )}
     </div>
   );
