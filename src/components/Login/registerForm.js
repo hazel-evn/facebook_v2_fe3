@@ -2,6 +2,8 @@ import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import RegisterInput from "../Input/RegisterInput";
 import * as Yup from "yup";
+import DateBirthSelect from "./dateBirthSelect";
+import GenderSelect from "./genderSelect";
 
 const userInfos = {
   first_name: "",
@@ -39,34 +41,37 @@ const RegisterForm = () => {
   const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
   const registerValidation = Yup.object({
     first_name: Yup.string()
-      .required("Please enter your name.")
-      .min(2, "First name must be between 2 and 16 characters.")
-      .max(16, "First name must be between 2 and 16 characters.")
-      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+      .required("Xin hãy nhập tên của bạn.")
+      .min(2, "Tên phải có từ 2 đến 16 ký tự.")
+      .max(16, "Tên phải có từ 2 đến 16 ký tự.")
+      .matches(/^[aA-zZ]+$/, "Số và ký tự đặc biệt không được phép."),
     last_name: Yup.string()
-      .required("Please enter your name.")
-      .min(2, "First name must be between 2 and 16 characters.")
-      .max(16, "First name must be between 2 and 16 characters.")
-      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+      .required("Xin hãy nhập tên của bạn.")
+      .min(2, "Tên phải có từ 2 đến 16 ký tự.")
+      .max(16, "Tên phải có từ 2 đến 16 ký tự.")
+      .matches(/^[aA-zZ]+$/, "Số và ký tự đặc biệt không được phép."),
     email: Yup.string()
       .required(
-        "You'll need this when you login and if you ever need to reset your password"
+        "Bạn sẽ cần cái này khi đăng nhập và nếu bạn cần đặt lại mật khẩu của mình."
       )
-      .email("Enter a valid email address"),
+      .email("Nhập địa chỉ email hợp lệ."),
     password: Yup.string()
       .required(
-        "Enter a combination of at least six number, letters and punctuation marks(such as ! and &)"
+        "Nhập kết hợp của ít nhất sáu số, chữ cái và dấu chấm câu (chẳng hạn như! Và &)"
       )
-      .min(6, "Password must be atleast 6 characters")
-      .max(36, "Password can't be more than 36 characters"),
+      .min(6, "Mật khẩu phải ít nhất 6 kí tự")
+      .max(36, "Mật khẩu không được nhiều hơn 36 ký tự"),
   });
+  const [dateError, setDateError] = useState("");
+  const [genderError, setGenderError] = useState("");
+
   return (
     <div className="blur">
       <div className="register">
         <div className="register_header">
           <i className="exit_icon"></i>
-          <span>Signup</span>
-          <span>it's quick and easy</span>
+          <span>Đăng ký</span>
+          <span>Thật nhanh chóng và dễ dàng</span>
         </div>
         <Formik
           enableReinitialize
@@ -81,19 +86,37 @@ const RegisterForm = () => {
             gender,
           }}
           validationSchema={registerValidation}
+          onSubmit={() => {
+            let current_date = new Date();
+            let picked_date = new Date(bYear, bMonth - 1, bDay);
+            let atleast14 = new Date(1970 + 14, 0, 1);
+            if (current_date - picked_date < atleast14) {
+              setDateError(
+                "Có vẻ như bạn đã nhập sai thông tin. Hãy đảm bảo rằng bạn sử dụng ngày sinh thực của mình."
+              );
+            } else if (genderError === "") {
+              setDateError("");
+              setGenderError(
+                "Vui lòng chọn một giới tính. Bạn có thể thay đổi người có thể xem thông tin này sau."
+              );
+            } else {
+              setDateError("");
+              setGenderError("");
+            }
+          }}
         >
           {(formik) => (
             <Form className="register_form">
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder="First name"
+                  placeholder="Họ"
                   name="first_name"
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
                   type="text"
-                  placeholder="Surname"
+                  placeholder="Tên"
                   name="last_name"
                   onChange={handleRegisterChange}
                 />
@@ -101,7 +124,7 @@ const RegisterForm = () => {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder="Mobile number or email address"
+                  placeholder="Số điện thoại di động hoặc địa chỉ email"
                   name="email"
                   onChange={handleRegisterChange}
                 />
@@ -109,86 +132,44 @@ const RegisterForm = () => {
               <div className="reg_line">
                 <RegisterInput
                   type="password"
-                  placeholder="New password"
+                  placeholder="Mật khẩu"
                   name="password"
                   onChange={handleRegisterChange}
                 />
               </div>
               <div className="reg_col">
                 <div className="reg_line_header">
-                  Date of birth <i className="info_icon"></i>
+                  Ngày sinh <i className="info_icon"></i>
                 </div>
-                <div className="reg_grid">
-                  <select name="bDay">
-                    {days.map((day, index) => (
-                      <option key={index}>{day}</option>
-                    ))}
-                  </select>
-                  <select
-                    name="bMonth"
-                    value={bMonth}
-                    onChange={handleRegisterChange}
-                  >
-                    {months.map((month, index) => (
-                      <option key={index}>{month}</option>
-                    ))}
-                  </select>
-                  <select
-                    name="bYear"
-                    value={bYear}
-                    onChange={handleRegisterChange}
-                  >
-                    {year.map((year, index) => (
-                      <option key={index}>{year}</option>
-                    ))}
-                  </select>
-                </div>
+                <DateBirthSelect
+                  bDay={bDay}
+                  bMonth={bMonth}
+                  bYear={bYear}
+                  days={days}
+                  months={months}
+                  years={year}
+                  handleRegisterChange={handleRegisterChange}
+                  dateError={dateError}
+                />
               </div>
               <div className="reg_col">
                 <div className="reg_line_header">
-                  Gender <i className="info_icon"></i>
+                  Giới tính <i className="info_icon"></i>
                 </div>
-                <div className="reg_grid">
-                  <label htmlFor="male">
-                    Male
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="male"
-                      value="male"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                  <label htmlFor="female">
-                    Female
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="female"
-                      value="female"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                  <label htmlFor="custom">
-                    Custom
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="custom"
-                      value="custom"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                </div>
+                <GenderSelect
+                  handleRegisterChange={handleRegisterChange}
+                  genderError={genderError}
+                />
               </div>
               <div className="reg_infos">
-                By clicking Sign Up, you agree to our{" "}
-                <span>Terms, Data Policy &nbsp;</span>
-                and <span>Cookie Policy.</span> You may receive SMS
-                notifications from us and can opt out at any time.
+                Bằng cách nhấp vào Đăng ký, bạn đồng ý với
+                <span> Điều khoản, Chính sách Dữ liệu &nbsp;</span>
+                và <span>Chính sách Cookie của chúng tôi.</span> Bạn có thể nhận
+                được thông báo SMS từ chúng tôi và có thể chọn không tham gia
+                bất kỳ lúc nào.
               </div>
               <div className="reg_btn_wrapper">
-                <button className="blue_btn open_signup">Sign Up</button>
+                <button className="blue_btn open_signup">Đăng ký</button>
               </div>
             </Form>
           )}

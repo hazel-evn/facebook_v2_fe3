@@ -18,17 +18,18 @@ const LoginForm = () => {
   };
   const loginValition = Yup.object({
     email: Yup.string()
-      .required("Email address is required")
-      .email("Must be a valid email.")
+      .required("Địa chỉ email là bắt buộc.")
+      .email("Phải là một email hợp lệ.")
       .max(100),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string().required("Mật khẩu là bắt buộc."),
   });
   return (
     <div className="login_wrap">
       <div className="login_1">
         <img src="../../icons/facebook.svg" alt="" />
         <span>
-          Facebook helps you connect and share with the people in your life.
+          Facebook giúp bạn kết nối và chia sẻ với những người trong cuộc sống
+          của bạn.
         </span>
       </div>
       <div className="login_2">
@@ -46,31 +47,31 @@ const LoginForm = () => {
                 <LoginInput
                   type="text"
                   name="email"
-                  placeholder="Email address or phone number"
+                  placeholder="Địa chỉ email hoặc số điện thoại"
                   onChange={handleLoginChange}
                 />
                 <LoginInput
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   onChange={handleLoginChange}
                   bottom
                 />
                 <button type="submit" className="blue_btn">
-                  Log In
+                  Đăng nhập
                 </button>
               </Form>
             )}
           </Formik>
           <Link to="/forgot" className="forgot_password">
-            Forgotten password ?
+            Đã quên mật khẩu ?
           </Link>
           <div className="sign_splitter"></div>
-          <button className="blue_btn open_signup">Create Account</button>
+          <button className="blue_btn open_signup">Tạo tài khoản</button>
         </div>
         <Link to="/" className="sign_extra">
-          <b>Create a Page</b>
-          for a celebrity, brand or business.
+          <b>Tạo một trang</b>
+          cho một người nổi tiếng, thương hiệu hoặc doanh nghiệp.
         </Link>
       </div>
     </div>
