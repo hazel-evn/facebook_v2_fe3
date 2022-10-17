@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import LoginInput from "../../components/Input/LoginInput";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const loginInfos = {
   email: "",
@@ -10,6 +14,7 @@ const loginInfos = {
 };
 
 const LoginForm = ({ setVisible }) => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState(loginInfos);
   const { email, password } = login;
   const handleLoginChange = (e) => {
@@ -23,6 +28,33 @@ const LoginForm = ({ setVisible }) => {
       .max(100),
     password: Yup.string().required("Mật khẩu là bắt buộc."),
   });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const loginForm = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:3002/api/signin", {
+        email,
+        password,
+      });
+      console.log(data);
+      setError("");
+      setLoading(true);
+      setSuccess("Đăng nhập thành công !");
+      setTimeout(() => {
+        dispatch({ type: "LOGIN", payload: data });
+        setLoading(false);
+        navigate("/");
+        Cookies.set("user", JSON.stringify(data));
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setSuccess("");
+      setError(error.reponse.data.message);
+    }
+  };
   return (
     <div className="login_wrap">
       <div className="login_1">
@@ -41,6 +73,9 @@ const LoginForm = ({ setVisible }) => {
               password,
             }}
             validationSchema={loginValition}
+            onSubmit={() => {
+              loginForm();
+            }}
           >
             {(formik) => (
               <Form>
@@ -66,6 +101,9 @@ const LoginForm = ({ setVisible }) => {
           <Link to="/forgot" className="forgot_password">
             Đã quên mật khẩu ?
           </Link>
+          {error && <div className="error_text">{error}</div>}
+          {success && <div className="success_text">{success}</div>}
+          <ClipLoader color="#1876f2" loading={loading} size={30} />
           <div className="sign_splitter"></div>
           <button
             className="blue_btn open_signup"

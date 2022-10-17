@@ -90,11 +90,13 @@ const RegisterForm = ({ setVisible }) => {
       });
       setError("");
       console.log(data);
-      setSuccess("Đăng ký tài khoản thành công !");
+      setLoading(true);
       setTimeout(() => {
         dispatch({ type: "LOGIN", payload: data });
         Cookies.set("user", JSON.stringify(data));
-        navigate("");
+        setLoading(false);
+        setSuccess("Đăng ký tài khoản thành công !");
+        navigate("/");
       }, 2000);
     } catch (error) {
       setLoading(false);
