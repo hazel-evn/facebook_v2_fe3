@@ -4,6 +4,11 @@ import RegisterInput from "../Input/RegisterInput";
 import * as Yup from "yup";
 import DateBirthSelect from "./dateBirthSelect";
 import GenderSelect from "./genderSelect";
+import ClipLoader from "react-spinners/ClipLoader";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const userInfos = {
   first_name: "",
@@ -16,7 +21,8 @@ const userInfos = {
   gender: "",
 };
 
-const RegisterForm = () => {
+const RegisterForm = ({ setVisible }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(userInfos);
   const {
     first_name,
@@ -65,11 +71,43 @@ const RegisterForm = () => {
   const [dateError, setDateError] = useState("");
   const [genderError, setGenderError] = useState("");
 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const registerSubmit = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:3002/api/users", {
+        first_name,
+        last_name,
+        email,
+        password,
+        bYear,
+        bMonth,
+        bDay,
+        gender,
+      });
+      setError("");
+      console.log(data);
+      setSuccess("Đăng ký tài khoản thành công !");
+      setTimeout(() => {
+        dispatch({ type: "LOGIN", payload: data });
+        Cookies.set("user", JSON.stringify(data));
+        navigate("");
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setSuccess("");
+      setError(error.reponse.data.message);
+    }
+  };
+
   return (
     <div className="blur">
       <div className="register">
         <div className="register_header">
-          <i className="exit_icon"></i>
+          <i className="exit_icon" onClick={() => setVisible(false)}></i>
           <span>Đăng ký</span>
           <span>Thật nhanh chóng và dễ dàng</span>
         </div>
@@ -102,6 +140,7 @@ const RegisterForm = () => {
             } else {
               setDateError("");
               setGenderError("");
+              registerSubmit();
             }
           }}
         >
@@ -171,6 +210,9 @@ const RegisterForm = () => {
               <div className="reg_btn_wrapper">
                 <button className="blue_btn open_signup">Đăng ký</button>
               </div>
+              <ClipLoader color="#1876f2" loading={loading} size={30} />
+              {error && <div className="error_text">{error}</div>}
+              {success && <div className="success_text">{success}</div>}
             </Form>
           )}
         </Formik>
