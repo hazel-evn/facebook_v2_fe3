@@ -9,7 +9,7 @@ const loginInfos = {
   password: "",
 };
 
-const LoginForm = () => {
+const LoginForm = ({ setVisible }) => {
   const [login, setLogin] = useState(loginInfos);
   const { email, password } = login;
   const handleLoginChange = (e) => {
@@ -67,10 +67,15 @@ const LoginForm = () => {
             Đã quên mật khẩu ?
           </Link>
           <div className="sign_splitter"></div>
-          <button className="blue_btn open_signup">Tạo tài khoản</button>
+          <button
+            className="blue_btn open_signup"
+            onClick={() => setVisible(true)}
+          >
+            Tạo tài khoản
+          </button>
         </div>
         <Link to="/" className="sign_extra">
-          <b>Tạo một trang</b>
+          <b>Tạo một trang </b>
           cho một người nổi tiếng, thương hiệu hoặc doanh nghiệp.
         </Link>
       </div>

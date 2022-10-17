@@ -225,6 +225,13 @@
   top: 15px !important;
 }
 
+.error_text {
+  color: red;
+}
+.success_text {
+  color: chartreuse;
+}
+
 /* Footer */
 @media (min-width: 539px) {
   .login_footer_wrap {
