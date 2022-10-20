@@ -2,16 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import {
+  ArrowDown,
   Friends,
   Gaming,
   HomeActive,
   Logo,
   Market,
+  Menu,
+  Messenger,
+  Notifications,
   Search,
   Watch,
 } from "../../svg";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { user } = useSelector((user) => ({ ...user }));
+  console.log(user);
   return (
     <div className="header">
       <div className="header_left">
@@ -47,7 +54,25 @@ const Header = () => {
           <Gaming />
         </Link>
       </div>
-      <div className="header_right"></div>
+      <div className="header_right">
+        <Link to="/profile" className="profile_link hover1">
+          <img src={user?.picture} />
+          <span>{user?.first_name}</span>
+        </Link>
+        <div className="circle_icon">
+          <Menu />
+        </div>
+        <div className="circle_icon">
+          <Messenger />
+        </div>
+        <div className="circle_icon">
+          <Notifications />
+          <div className="right_notification">5</div>
+        </div>
+        <div className="circle_icon">
+          <ArrowDown />
+        </div>
+      </div>
     </div>
   );
 };
