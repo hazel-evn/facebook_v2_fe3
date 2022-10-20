@@ -55,6 +55,13 @@ a {
 }
 /*----Buttons----*/
 
+.hover1:hover {
+  background: var(--bg-secondary);
+}
+.hover2:hover {
+  background: var(--bg-third);
+}
+
 .blur {
   position: fixed;
   top: 0;
