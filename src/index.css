@@ -62,6 +62,11 @@ a {
   background: var(--bg-third);
 }
 
+.card {
+  width: 500px;
+  height: 500px;
+}
+
 .blur {
   position: fixed;
   top: 0;
