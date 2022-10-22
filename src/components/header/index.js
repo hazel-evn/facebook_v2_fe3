@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import {
@@ -15,9 +15,11 @@ import {
   Watch,
 } from "../../svg";
 import { useSelector } from "react-redux";
+import SearchMenu from "./searchMenu";
 
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
+  const [showSearchMenu, setShowSearchMenu] = useState(false);
   console.log(user);
   return (
     <div className="header">
@@ -27,7 +29,7 @@ const Header = () => {
             <Logo />
           </div>
         </Link>
-        <div className="search searchi">
+        <div className="search searchi" onClick={() => setShowSearchMenu(true)}>
           <Search />
           <input
             type="text"
@@ -36,6 +38,7 @@ const Header = () => {
           />
         </div>
       </div>
+      {showSearchMenu && <SearchMenu setShowSearchMenu={setShowSearchMenu} />}
       <div className="header_middle">
         <Link to="/" className="middle_icon active">
           <HomeActive />
