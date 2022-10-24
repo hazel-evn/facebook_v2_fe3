@@ -8,6 +8,7 @@ const CreatePostPopup = ({ user }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(true);
   const [images, setImages] = useState([]);
+  console.log(images);
   const textRef = useRef(null);
   return (
     <div className="blur">
@@ -48,9 +49,10 @@ const CreatePostPopup = ({ user }) => {
             setText={setText}
             images={images}
             setImages={setImages}
+            setShowPrev={setShowPrev}
           />
         )}
-        <AddToYourPost />
+        <AddToYourPost setShowPrev={setShowPrev} />
         <button className="post_submit">Post</button>
       </div>
     </div>
