@@ -42,7 +42,7 @@ const Header = () => {
             <Logo />
           </div>
         </Link>
-        <div className="search searchi" onClick={() => setShowSearchMenu(true)}>
+        <div className="search search1" onClick={() => setShowSearchMenu(true)}>
           <Search />
           <input
             type="text"
@@ -75,7 +75,10 @@ const Header = () => {
           <img src={user?.picture} />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon hover1" ref={allmenu}>
+        <div
+          className={`circle_icon hover1 ${showAllMenu && "active_header"}`}
+          ref={allmenu}
+        >
           <div
             onClick={() => {
               setshowAllMenu((prev) => !prev);
@@ -92,7 +95,10 @@ const Header = () => {
           <Notifications />
           <div className="right_notification">5</div>
         </div>
-        <div className="circle_icon hover1" ref={userMenu}>
+        <div
+          className={`circle_icon hover1 ${showUserMenu && "active_header"}`}
+          ref={userMenu}
+        >
           <div onClick={() => setshowUserMenu((prev) => !prev)}>
             <ArrowDown />
           </div>
