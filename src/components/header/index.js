@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import {
@@ -16,10 +16,17 @@ import {
 } from "../../svg";
 import { useSelector } from "react-redux";
 import SearchMenu from "./searchMenu";
+import AllMenu from "./allMenu";
+import ClickOutside from "../../helpers/clickOutside";
 
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
   const [showSearchMenu, setShowSearchMenu] = useState(false);
+  const [showAllMenu, setshowAllMenu] = useState(false);
+  const allmenu = useRef(null);
+  ClickOutside(allmenu, () => {
+    setshowAllMenu(false);
+  });
   console.log(user);
   return (
     <div className="header">
@@ -62,17 +69,24 @@ const Header = () => {
           <img src={user?.picture} />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon">
+        <div
+          className="circle_icon hover1"
+          ref={allmenu}
+          onClick={() => {
+            setshowAllMenu((prev) => !prev);
+          }}
+        >
           <Menu />
+          {showAllMenu && <AllMenu />}
         </div>
-        <div className="circle_icon">
+        <div className="circle_icon hover1">
           <Messenger />
         </div>
-        <div className="circle_icon">
+        <div className="circle_icon hover1">
           <Notifications />
           <div className="right_notification">5</div>
         </div>
-        <div className="circle_icon">
+        <div className="circle_icon hover1">
           <ArrowDown />
         </div>
       </div>

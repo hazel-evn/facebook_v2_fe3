@@ -76,3 +76,11 @@ a {
   background: rgba(255, 255, 255, 0.768);
   z-index: 99;
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #aeaeafa4;
+  border-radius: 5px;
+}
