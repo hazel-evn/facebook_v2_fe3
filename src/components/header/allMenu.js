@@ -19,6 +19,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -29,6 +30,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -39,6 +41,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -49,6 +52,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -59,6 +63,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -69,6 +74,7 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
@@ -79,14 +85,15 @@ const AllMenu = () => {
                 icon={item.icon}
                 description={item.description}
                 name={item.name}
+                key={index}
               />
             ))}
           </div>
         </div>
         <div className="all_right">
           <div className="all_right_header">Tạo</div>
-          {create.map((item) => (
-            <div className="all_right_item hover1">
+          {create.map((item, index) => (
+            <div className="all_right_item hover1" key={index}>
               <div className="all_right_circle">
                 <i className={item.icon}></i>
               </div>
