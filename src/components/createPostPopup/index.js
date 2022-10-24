@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
 import AddToYourPost from "./AddToYourPost";
 import EmojiPickerBackground from "./EmojiPickerBackground";
+import ImagePreview from "./ImagePreview";
 import "./style.css";
 
 const CreatePostPopup = ({ user }) => {
   const [text, setText] = useState("");
-  const [showPrev, setShowPrev] = useState(false);
+  const [showPrev, setShowPrev] = useState(true);
+  const [images, setImages] = useState([]);
   const textRef = useRef(null);
   return (
     <div className="blur">
@@ -31,24 +33,22 @@ const CreatePostPopup = ({ user }) => {
             </div>
           </div>
         </div>
-        {!showPrev && (
+        {!showPrev ? (
           <div>
-            <div className="flex_center">
-              <textarea
-                maxLength="100"
-                ref={textRef}
-                value={text}
-                placeholder="What's is on your mind Mohamed"
-                className="post_input"
-                onChange={(e) => setText(e.target.value)}
-              ></textarea>
-            </div>
             <EmojiPickerBackground
               text={text}
               textRef={textRef}
               setText={setText}
             />
           </div>
+        ) : (
+          <ImagePreview
+            text={text}
+            textRef={textRef}
+            setText={setText}
+            images={images}
+            setImages={setImages}
+          />
         )}
         <AddToYourPost />
         <button className="post_submit">Post</button>

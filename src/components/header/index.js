@@ -20,7 +20,6 @@ import SearchMenu from "./searchMenu";
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
   const [showSearchMenu, setShowSearchMenu] = useState(false);
-  console.log(user);
   return (
     <div className="header">
       <div className="header_left">
