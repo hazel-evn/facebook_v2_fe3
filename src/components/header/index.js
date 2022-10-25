@@ -33,7 +33,7 @@ const Header = () => {
   ClickOutside(userMenu, () => {
     setshowUserMenu(false);
   });
-  console.log(user);
+  console.log(user.user);
   return (
     <div className="header">
       <div className="header_left">
@@ -72,8 +72,9 @@ const Header = () => {
       </div>
       <div className="header_right">
         <Link to="/profile" className="profile_link hover1">
-          <img src={user?.picture} />
-          <span>{user?.first_name}</span>
+          <img src={user?.user.picture} alt="" />
+          <span>{user?.user.first_name}</span>
+          <span>{user?.user.last_name}</span>
         </Link>
         <div
           className={`circle_icon hover1 ${showAllMenu && "active_header"}`}
