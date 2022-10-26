@@ -8,13 +8,12 @@ const CreatePostPopup = ({ user }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(true);
   const [images, setImages] = useState([]);
-  console.log(images);
-  const textRef = useRef(null);
+  const [background, setBackground] = useState("");
   return (
     <div className="blur">
       <div className="postBox">
         <div className="box_header">
-          <div className="box_circle">
+          <div className="small_circle">
             <i className="exit_icon"></i>
           </div>
           <span>Create Post</span>
@@ -38,14 +37,15 @@ const CreatePostPopup = ({ user }) => {
           <div>
             <EmojiPickerBackground
               text={text}
-              textRef={textRef}
               setText={setText}
+              showPrev={showPrev}
+              setBackground={setBackground}
+              background={background}
             />
           </div>
         ) : (
           <ImagePreview
             text={text}
-            textRef={textRef}
             setText={setText}
             images={images}
             setImages={setImages}
