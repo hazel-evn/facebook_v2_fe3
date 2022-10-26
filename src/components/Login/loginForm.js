@@ -65,7 +65,7 @@ const LoginForm = ({ setVisible }) => {
         </span>
       </div>
       <div className="login_2">
-        <div className="login_2_wrap">cccccccc
+        <div className="login_2_wrap">
           <Formik
             enableReinitialize
             initialValues={{
