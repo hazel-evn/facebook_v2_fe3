@@ -12,15 +12,14 @@ function App() {
   const { user } = useSelector((state) => ({ ...state }));
   return (
     <div className="App">
-      {/* <CreatePostPopup /> */}
       <Routes>
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/postpopup" element={<CreatePostPopup />} />
         </Route>
         <Route element={<LoggedInRoutes />}>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/postpopup" element={<CreatePostPopup />} />
         </Route>
       </Routes>
     </div>

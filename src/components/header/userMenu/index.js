@@ -11,11 +11,11 @@ const UserMenu = ({ user }) => {
       {visible === 0 && (
         <div>
           <Link href="/profile" className="mmenu_header hover3">
-            <img src={user?.picture} alt="" />
+            <img src={user?.user.picture} alt="" />
             <div className="mmenu_col">
               <span>
-                {user?.first_name}
-                {user?.last_name}
+                {user?.user.first_name}
+                {user?.user.last_name}
               </span>
               <span>See your profile</span>
             </div>
