@@ -1,14 +1,14 @@
 export const left = [
   {
-    text: "Find friends",
+    text: "Bạn bè",
     img: "friends",
   },
   {
-    text: "Memories",
+    text: "Ký ức",
     img: "memories",
   },
   {
-    text: "Groups",
+    text: "Nhóm",
     img: "groups",
     notification: "5 new",
   },
@@ -22,43 +22,43 @@ export const left = [
     notification: "9 new videos",
   },
   {
-    text: "Saved",
+    text: "Đã lưu",
     img: "saved",
   },
   {
-    text: "Pages",
+    text: "Trang",
     img: "pages",
   },
   {
-    text: "Events",
+    text: "Sự kiện",
     img: "events",
   },
   {
-    text: "Ad Center",
+    text: "Trung tâm quảng cáo",
     img: "ad",
   },
   {
-    text: "Ads Manager",
+    text: "Người quản lý quảng cáo",
     img: "ads",
   },
   {
-    text: "Campus",
+    text: "Khuôn viên",
     img: "campus",
   },
   {
-    text: "Climate science center",
+    text: "Trung tâm khoa học khí hậu",
     img: "climate",
   },
   {
-    text: "Community Help",
+    text: "Trợ giúp cộng đồng",
     img: "community",
   },
   {
-    text: "COVID-19 Information Centrer",
+    text: "Trung tâm thông tin COVID-19",
     img: "covid",
   },
   {
-    text: "Emotional health",
+    text: "Sức khỏe cảm xúc",
     img: "emotional",
   },
   {
@@ -66,23 +66,23 @@ export const left = [
     img: "pay",
   },
   {
-    text: "Favorites",
+    text: "Yêu thích",
     img: "fav",
   },
   {
-    text: "Fundraisers",
+    text: "Người gây quỹ",
     img: "fund",
   },
   {
-    text: "Gaming Video",
+    text: "Video trò chơi",
     img: "gaming",
   },
   {
-    text: "Jobs",
+    text: "Công việc",
     img: "jobs",
   },
   {
-    text: "Live videos",
+    text: "Video trực tiếp",
     img: "live",
   },
   {
@@ -94,19 +94,19 @@ export const left = [
     img: "messkids",
   },
   {
-    text: "Most recent",
+    text: "Gần đây nhất",
     img: "recent",
   },
   {
-    text: "Play Games",
+    text: "Chơi game",
     img: "play",
   },
   {
-    text: "Recent ad activity",
+    text: "Hoạt động quảng cáo gần đây",
     img: "recentad",
   },
   {
-    text: "Weather",
+    text: "Thời tiết",
     img: "weather",
   },
 ];
