@@ -52,8 +52,8 @@ const LeftHonme = ({ user }) => {
       )}
       <div className="splitter">
         <div className="shortcut">
-          <div className="heading">Your Shortcuts</div>
-          <div className="edit_shortcut">Edit</div>
+          <div className="heading">Nối tắt của bạn</div>
+          <div className="edit_shortcut">Sửa</div>
         </div>
         <div className="shortcut_list">
           <Shortcut
