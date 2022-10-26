@@ -10,7 +10,7 @@ function App() {
   const { user } = useSelector((state) => ({ ...state }));
   return (
     <div className="App">
-      <CreatePostPopup />
+      {/* <CreatePostPopup /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
