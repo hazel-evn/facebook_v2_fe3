@@ -23,8 +23,7 @@ import UserMenu from "./userMenu";
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
   const [showSearchMenu, setShowSearchMenu] = useState(false);
-<<<<<<< HEAD
-=======
+
   const [showAllMenu, setshowAllMenu] = useState(false);
   const [showUserMenu, setshowUserMenu] = useState(false);
   const allmenu = useRef(null);
@@ -36,7 +35,6 @@ const Header = () => {
     setshowUserMenu(false);
   });
   console.log(user.user);
->>>>>>> b6a21cbff8e9519f226df9a7e2492a2c28a06ff6
   return (
     <div className="header">
       <div className="header_left">
