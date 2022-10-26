@@ -1,8 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
-const EmojiPickerBackground = ({ text, textRef, setText, type2 }) => {
+const EmojiPickerBackground = ({
+  text,
+  setText,
+  type2,
+  background,
+  setBackground,
+}) => {
   const [picker, setPicker] = useState(false);
+  const [showBackgrounds, setShowBackgrounds] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
+  const textRef = useRef(null);
+  const bgRef = useRef(null);
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
@@ -16,16 +25,44 @@ const EmojiPickerBackground = ({ text, textRef, setText, type2 }) => {
     setText(newText);
     setCursorPosition(start.length + emoji.length);
   };
+  const postBackgrounds = [
+    "../../../images/postbackgrounds/1.jpg",
+    "../../../images/postbackgrounds/2.jpg",
+    "../../../images/postbackgrounds/3.jpg",
+    "../../../images/postbackgrounds/4.jpg",
+    "../../../images/postbackgrounds/5.jpg",
+    "../../../images/postbackgrounds/6.jpg",
+    "../../../images/postbackgrounds/7.jpg",
+    "../../../images/postbackgrounds/8.jpg",
+    "../../../images/postbackgrounds/9.jpg",
+  ];
+  const backgroundHandler = (i) => {
+    bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
+    setBackground(postBackgrounds[i]);
+    bgRef.current.classList.add("bgHandler");
+  };
+  const removeBackground = (i) => {
+    bgRef.current.style.backgroundImage = "";
+    setBackground("");
+    bgRef.current.classList.remove("bgHandler");
+  };
   return (
     <div className={type2 ? "image_input" : ""}>
-      <div className={type2 ? "flex_center" : ""}>
+      <div className={type2 ? "flex_center" : ""} ref={bgRef}>
         <textarea
-          maxLength="100"
+          maxLength="300"
           ref={textRef}
           value={text}
           placeholder="What's is on your mind Mohamed"
           className={`post_input ${type2 ? "input2" : ""}`}
           onChange={(e) => setText(e.target.value)}
+          style={{
+            paddingTop: `${
+              background
+                ? Math.abs(textRef.current.value.length * 0.1 - 32)
+                : "0"
+            }%`,
+          }}
         ></textarea>
       </div>
       <div className={!type2 ? "post_emoji_wrap" : ""}>
@@ -38,7 +75,29 @@ const EmojiPickerBackground = ({ text, textRef, setText, type2 }) => {
             <Picker onEmojiClick={handleEmoji} />
           </div>
         )}
-        {!type2 && <img src="../../../icons/colorful.png" alt="" />}
+        {!type2 && (
+          <img
+            src="../../../icons/colorful.png"
+            alt=""
+            onClick={() => setShowBackgrounds((prev) => !prev)}
+          />
+        )}
+        {!type2 && showBackgrounds && (
+          <div className="post_backgrounds">
+            <div className="no_bg" onClick={() => removeBackground()}></div>
+            {postBackgrounds.map((bg, i) => (
+              <img
+                src={bg}
+                key={i}
+                alt=""
+                onClick={() => {
+                  backgroundHandler(i);
+                }}
+              />
+            ))}
+          </div>
+        )}
+
         <i
           className={`emoji_icon_large ${type2 ? "moveleft" : ""}`}
           onClick={() => {

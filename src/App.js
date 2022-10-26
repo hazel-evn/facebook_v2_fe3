@@ -16,6 +16,7 @@ function App() {
       <Routes>
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/postpopup" element={<CreatePostPopup />} />
         </Route>
         <Route element={<LoggedInRoutes />}>
           <Route path="/" element={<Home />} />
