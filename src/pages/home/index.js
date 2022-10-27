@@ -4,6 +4,8 @@ import LeftHonme from "../../components/home/left";
 import ClickOutside from "../../helpers/clickOutside";
 import { useSelector } from "react-redux";
 import HomeRight from "../../components/home/right";
+import Stories from "../../components/home/stories";
+import "./style.css";
 
 function Home() {
   const { user } = useSelector((user) => ({ ...user }));
@@ -13,9 +15,12 @@ function Home() {
     setVisible(false);
   });
   return (
-    <div>
+    <div className="home">
       <Header />
       <LeftHonme user={user} />
+      <div className="home_middle">
+        <Stories />
+      </div>
       <HomeRight user={user} />
       {visible && <div className="card" ref={el}></div>}
     </div>
