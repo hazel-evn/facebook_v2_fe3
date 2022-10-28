@@ -17,7 +17,7 @@ const UserMenu = ({ user }) => {
                 {user?.user.first_name}
                 {user?.user.last_name}
               </span>
-              <span>See your profile</span>
+              <span>Xem hồ sơ của bạn</span>
             </div>
           </Link>
           <div className="mmenu_splitter"></div>
@@ -26,8 +26,10 @@ const UserMenu = ({ user }) => {
               <i className="report_filled_icon"></i>
             </div>
             <div className="mmenu_col">
-              <div className="mmenu_span1">Give feedback</div>
-              <div className="mmenu_span2">Help us improve facebook</div>
+              <div className="mmenu_span1">Đưa ra phản hồi</div>
+              <div className="mmenu_span2">
+                Giúp chúng tôi cải thiện facebook
+              </div>
             </div>
           </div>
           <div className="mmenu_splitter"></div>
@@ -35,7 +37,7 @@ const UserMenu = ({ user }) => {
             <div className="small_circle">
               <i className="settings_filled_icon"></i>
             </div>
-            <span>Setting & privacy</span>
+            <span>Cài đặt & sự riêng tư</span>
             <div className="rArrow">
               <i className="right_icon"></i>
             </div>
@@ -45,7 +47,7 @@ const UserMenu = ({ user }) => {
             <div className="small_circle">
               <i className="help_filled_icon"></i>
             </div>
-            <span>Help & support</span>
+            <span>Trợ giúp & hỗ trợ</span>
             <div className="rArrow">
               <i className="right_icon"></i>
             </div>
@@ -55,7 +57,7 @@ const UserMenu = ({ user }) => {
             <div className="small_circle">
               <i className="dark_filled_icon"></i>
             </div>
-            <span>Display & Accessibility</span>
+            <span>Màn hình & trợ năng</span>
             <div className="rArrow">
               <i className="right_icon"></i>
             </div>
@@ -65,7 +67,7 @@ const UserMenu = ({ user }) => {
             <div className="small_circle">
               <i className="logout_filled_icon"></i>
             </div>
-            <span>Logout</span>
+            <span>Đăng xuất</span>
           </div>
         </div>
       )}

@@ -4,25 +4,25 @@ export default function CreatePost({ user, setVisible, profile }) {
   return (
     <div className="createPost">
       <div className="createPost_header">
-        <img src={user?.picture} alt="" />
+        <img src={user.user?.picture} alt="" />
         <div
           className="open_post hover2"
           onClick={() => {
             setVisible(true);
           }}
         >
-          What's on your mind, {user?.first_name}
+          {user.user?.first_name} ơi, bạn đang nghĩ gì thế ?
         </div>
       </div>
       <div className="create_splitter"></div>
       <div className="createPost_body">
         <div className="createPost_icon hover1">
           <LiveVideo color="#f3425f" />
-          Live Video
+          Video trực tiếp
         </div>
         <div className="createPost_icon hover1">
           <Photo color="#4bbf67" />
-          Photo/Video
+          Ảnh/Video
         </div>
         {profile ? (
           <div className="createPost_icon hover1">

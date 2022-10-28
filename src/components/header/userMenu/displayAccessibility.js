@@ -7,26 +7,26 @@ const DisplayAccessibility = ({ setVisible }) => {
         <div className="circle hover1" onClick={() => setVisible(0)}>
           <i className="arrow_back_icon"></i>
         </div>
-        Display & Accessibility
+        Màn hình & trợ năng
       </div>
       <div className="mmenu_main">
         <div className="small_circle">
           <i className="dark_filled_icon"></i>
         </div>
         <div className="mmenu_col">
-          <span className="mmenu_span1">Dark Mode</span>
-          <span className="mmenu">
-            Adjust the appearance of Facebook to reduce glare and give your eyes
-            a break.
+          <span className="mmenu_span1">Chế độ tối</span>
+          <span className="mmenu_span2">
+            Điều chỉnh giao diện của Facebook để giảm độ chói và cho đôi mắt của
+            bạn nghỉ.
           </span>
         </div>
       </div>
       <label htmlFor="darkOff" className="hover1">
-        <span>Off</span>
+        <span>Tắt</span>
         <input type="radio" name="dark" id="darkOff" />
       </label>
       <label htmlFor="darkOn" className="hover1">
-        <span>On</span>
+        <span>Bật</span>
         <input type="radio" name="dark" id="darkOn" />
       </label>
       <div className="mmenu_main">
@@ -34,26 +34,25 @@ const DisplayAccessibility = ({ setVisible }) => {
           <i className="compact_icon"></i>
         </div>
         <div className="mmenu_col">
-          <span className="mmenu_span1">Compact mode</span>
-          <span className="mmenu">
-            Adjust the appearance of Facebook to reduce glare and give your eyes
-            a break.
+          <span className="mmenu_span1">Chế độ thu gọn</span>
+          <span className="mmenu_span2">
+            Làm giảm kích thước phông chữ để có thêm nội dung vừa với màn hình.
           </span>
         </div>
       </div>
       <label htmlFor="compactOff" className="hover1">
-        <span>Off</span>
+        <span>Tắt</span>
         <input type="radio" name="compact" id="compactOff" />
       </label>
       <label htmlFor="compactOn" className="hover1">
-        <span>On</span>
+        <span>Bật</span>
         <input type="radio" name="compact" id="compactOn" />
       </label>
-      <div className="menu_item hover3">
+      <div className="mmenu_item hover3">
         <div className="small_circle" style={{ width: "50px" }}>
           <i className="keyboard_icon"></i>
         </div>
-        <span>Keyboard</span>
+        <span>Bàn phím</span>
         <div className="rArrow">
           <i className="right_icon"></i>
         </div>
