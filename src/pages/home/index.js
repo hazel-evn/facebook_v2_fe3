@@ -5,6 +5,7 @@ import ClickOutside from "../../helpers/clickOutside";
 import { useSelector } from "react-redux";
 import HomeRight from "../../components/home/right";
 import Stories from "../../components/home/stories";
+import CreatePost from "../../components/createPost";
 import "./style.css";
 
 function Home() {
@@ -20,6 +21,7 @@ function Home() {
       <LeftHonme user={user} />
       <div className="home_middle">
         <Stories />
+        <CreatePost user={user} />
       </div>
       <HomeRight user={user} />
       {visible && <div className="card" ref={el}></div>}

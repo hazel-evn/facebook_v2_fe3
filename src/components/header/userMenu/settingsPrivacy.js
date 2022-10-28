@@ -12,43 +12,43 @@ const SettingsPrivacy = ({ setVisible }) => {
         >
           <i className="arrow_back_icon"></i>
         </div>
-        Setting & privacy
+        Cài đặt & sự riêng tư
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="settings_filled_icon"></i>
         </div>
-        <span>Settings</span>
+        <span>Cài đặt</span>
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="privacy_checkup_icon"></i>
         </div>
-        <span>Privacy checkup</span>
+        <span>Kiểm tra quyền riêng tư</span>
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="privacy_shortcuts_icon"></i>
         </div>
-        <span>Privacy Shortcuts</span>
+        <span>Trung tâm quyền riêng tư</span>
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="activity_log_icon"></i>
         </div>
-        <span>Activity log</span>
+        <span>Nhật ký hoạt động</span>
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="news_icon"></i>
         </div>
-        <span>News Feed Prefrences</span>
+        <span>Tùy chọn bảng feed</span>
       </div>
       <div className="mmenu_item hover3">
         <div className="small_circle">
           <i className="language_icon"></i>
         </div>
-        <span>Language</span>
+        <span>Ngôn ngữ</span>
       </div>
     </div>
   );
