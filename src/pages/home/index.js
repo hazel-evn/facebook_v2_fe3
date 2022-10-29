@@ -8,7 +8,7 @@ import Stories from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
 import "./style.css";
 
-function Home() {
+function Home({ setPostVisible }) {
   const { user } = useSelector((user) => ({ ...user }));
   const [visible, setVisible] = useState(true);
   const el = useRef(null);
@@ -21,7 +21,7 @@ function Home() {
       <LeftHonme user={user} />
       <div className="home_middle">
         <Stories />
-        <CreatePost user={user} />
+        <CreatePost user={user} setPostVisible={setPostVisible} />
       </div>
       <HomeRight user={user} />
       {visible && <div className="card" ref={el}></div>}

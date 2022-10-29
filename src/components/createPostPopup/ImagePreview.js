@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import EmojiPickerBackground from "./EmojiPickerBackground";
 
 const ImagePreview = ({
+  user,
   text,
   textRef,
   setText,
@@ -23,6 +24,7 @@ const ImagePreview = ({
   return (
     <div className="overflow_a scrollbar">
       <EmojiPickerBackground
+        user={user}
         text={text}
         textRef={textRef}
         setText={setText}
