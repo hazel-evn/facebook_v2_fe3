@@ -1,5 +1,5 @@
 import { Feeling, LiveVideo, Photo } from "../../svg";
-import "./index.css";
+import "./style.css";
 export default function CreatePost({ user, setPostVisible, profile }) {
   return (
     <div className="createPost">

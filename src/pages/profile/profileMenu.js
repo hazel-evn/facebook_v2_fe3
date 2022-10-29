@@ -6,25 +6,25 @@ export default function ProfileMenu() {
     <div className="profile_menu_wrap">
       <div className="profile_menu">
         <Link to="/" className="profile_menu_active">
-          Posts
+          Bài viết
         </Link>
         <Link to="/" className="hover1">
-          About
+          Giới thiệu
         </Link>
         <Link to="/" className="hover1">
-          Friends
+          Bạn bè
         </Link>
         <Link to="/" className="hover1">
-          Photos
+          Ảnh
         </Link>
         <Link to="/" className="hover1">
-          Videos
+          Video
         </Link>
         <Link to="/" className="hover1">
-          Check-ins
+          Check-in
         </Link>
         <Link to="/" className="hover1">
-          More
+          Xem thêm
         </Link>
         <div className="p10_dots">
           <Dots />
