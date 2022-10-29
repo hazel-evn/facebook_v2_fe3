@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
 const EmojiPickerBackground = ({
+  user,
   text,
   setText,
   type2,
@@ -53,7 +54,7 @@ const EmojiPickerBackground = ({
           maxLength="300"
           ref={textRef}
           value={text}
-          placeholder="What's is on your mind Mohamed"
+          placeholder={`Bạn đang nghĩ gì ${user?.user.first_name}`}
           className={`post_input ${type2 ? "input2" : ""}`}
           onChange={(e) => setText(e.target.value)}
           style={{

@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import AddToYourPost from "./AddToYourPost";
 import EmojiPickerBackground from "./EmojiPickerBackground";
 import ImagePreview from "./ImagePreview";
 import "./style.css";
 
-const CreatePostPopup = ({ user }) => {
+const CreatePostPopup = ({ user, setPostVisible }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(true);
   const [images, setImages] = useState([]);
@@ -13,7 +14,7 @@ const CreatePostPopup = ({ user }) => {
     <div className="blur">
       <div className="postBox">
         <div className="box_header">
-          <div className="small_circle">
+          <div className="small_circle" onClick={() => setPostVisible(false)}>
             <i className="exit_icon"></i>
           </div>
           <span>Create Post</span>
@@ -25,7 +26,9 @@ const CreatePostPopup = ({ user }) => {
             className="box_profile_img"
           />
           <div className="box_col">
-            <div className="box_profile_name">Mohamed Hajii</div>
+            <div className="box_profile_name">
+              {user?.user.first_name} {user?.user.last_name}
+            </div>
             <div className="box_privacy">
               <img src="../../../icons/public.png" alt="" />
               <span>Public</span>
@@ -41,11 +44,13 @@ const CreatePostPopup = ({ user }) => {
               showPrev={showPrev}
               setBackground={setBackground}
               background={background}
+              user={user}
             />
           </div>
         ) : (
           <ImagePreview
             text={text}
+            user={user}
             setText={setText}
             images={images}
             setImages={setImages}
