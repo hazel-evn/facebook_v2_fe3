@@ -1,18 +1,27 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import ClickOutside from "../../helpers/clickOutside";
 import AddToYourPost from "./AddToYourPost";
 import EmojiPickerBackground from "./EmojiPickerBackground";
 import ImagePreview from "./ImagePreview";
 import "./style.css";
 
 const CreatePostPopup = ({ user, setPostVisible }) => {
+  const popup = useRef(null);
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
+  ClickOutside(popup, () => {
+    setPostVisible(false);
+  });
+  const postSubmit = async () => {
+    if (background) {
+    }
+  };
   return (
     <div className="blur">
-      <div className="postBox">
+      <div className="postBox" ref={popup}>
         <div className="box_header">
           <div className="small_circle" onClick={() => setPostVisible(false)}>
             <i className="exit_icon"></i>
@@ -58,7 +67,14 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           />
         )}
         <AddToYourPost setShowPrev={setShowPrev} />
-        <button className="post_submit">Post</button>
+        <button
+          className="post_submit"
+          onClick={() => {
+            postSubmit();
+          }}
+        >
+          Post
+        </button>
       </div>
     </div>
   );
