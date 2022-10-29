@@ -24,6 +24,7 @@ export const createPost = async (
         },
       }
     );
+    return data;
   } catch (error) {
     return error.response.data.message;
   }
