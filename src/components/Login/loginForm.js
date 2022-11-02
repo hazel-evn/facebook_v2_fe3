@@ -35,7 +35,7 @@ const LoginForm = ({ setVisible }) => {
 
   const loginForm = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3002/api/signin", {
+      const { data } = await axios.post("http://localhost:8000/login", {
         email,
         password,
       });

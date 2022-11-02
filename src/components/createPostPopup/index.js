@@ -43,14 +43,10 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           <span>Create Post</span>
         </div>
         <div className="box_profile">
-          <img
-            src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
-            alt=""
-            className="box_profile_img"
-          />
+          <img src={user?.picture} alt="" className="box_profile_img" />
           <div className="box_col">
             <div className="box_profile_name">
-              {user?.user.first_name} {user?.user.last_name}
+              {user?.first_name} {user?.last_name}
             </div>
             <div className="box_privacy">
               <img src="../../../icons/public.png" alt="" />

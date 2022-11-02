@@ -4,10 +4,10 @@ const Contact = ({ user }) => {
   return (
     <div className="contact hover3">
       <div className="contact_img">
-        <img src={user.user.picture} alt="" />
+        <img src={user.picture} alt="" />
       </div>
       <span>
-        {user.user.first_name} {user.user.last_name}
+        {user.first_name} {user.last_name}
       </span>
     </div>
   );
