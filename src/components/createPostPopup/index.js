@@ -1,14 +1,16 @@
 import React, { useState, useRef } from "react";
+import { createPost } from "../../functions/post";
 import ClickOutside from "../../helpers/clickOutside";
 import AddToYourPost from "./AddToYourPost";
 import EmojiPickerBackground from "./EmojiPickerBackground";
 import ImagePreview from "./ImagePreview";
+import { PulseLoader } from "react-spinners";
 import "./style.css";
 
 const CreatePostPopup = ({ user, setPostVisible }) => {
   const popup = useRef(null);
   const [text, setText] = useState("");
-  const [showPrev, setShowPrev] = useState(true);
+  const [showPrev, setShowPrev] = useState(false);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
@@ -17,6 +19,18 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
   });
   const postSubmit = async () => {
     if (background) {
+      setLoading(true);
+      const res = await createPost(
+        null,
+        background,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      setBackground("");
+      setText("");
     }
   };
   return (
@@ -29,14 +43,10 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           <span>Create Post</span>
         </div>
         <div className="box_profile">
-          <img
-            src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
-            alt=""
-            className="box_profile_img"
-          />
+          <img src={user?.picture} alt="" className="box_profile_img" />
           <div className="box_col">
             <div className="box_profile_name">
-              {user?.user.first_name} {user?.user.last_name}
+              {user?.first_name} {user?.last_name}
             </div>
             <div className="box_privacy">
               <img src="../../../icons/public.png" alt="" />
@@ -72,8 +82,9 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           onClick={() => {
             postSubmit();
           }}
+          disabled={loading}
         >
-          Post
+          {loading ? <PulseLoader color="#fff" size={5} /> : "Post"}
         </button>
       </div>
     </div>

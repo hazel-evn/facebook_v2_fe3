@@ -7,7 +7,7 @@ export default function ProfielPictureInfos({ user }) {
             className="profile_w_bg"
             style={{
               backgroundSize: "cover",
-              backgroundImage: `url(${user.user.picture})`,
+              backgroundImage: `url(${user.picture})`,
             }}
           ></div>
           <div className="profile_circle hover1">
@@ -17,7 +17,7 @@ export default function ProfielPictureInfos({ user }) {
         <div className="profile_w_col">
           <div className="profile_name">
             <div className="othername">
-              {user.user.first_name} {user.user.last_name}
+              {user.first_name} {user.last_name}
             </div>
           </div>
           <div className="profile_friend_count"></div>

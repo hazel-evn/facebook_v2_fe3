@@ -4,14 +4,14 @@ export default function CreatePost({ user, setPostVisible, profile }) {
   return (
     <div className="createPost">
       <div className="createPost_header">
-        <img src={user?.user.picture} alt="" />
+        <img src={user?.picture} alt="" />
         <div
           className="open_post hover2"
           onClick={() => {
             setPostVisible(true);
           }}
         >
-          {user?.user.first_name} ơi, bạn đang nghĩ gì thế ?
+          {user?.first_name} ơi, bạn đang nghĩ gì thế ?
         </div>
       </div>
       <div className="create_splitter"></div>

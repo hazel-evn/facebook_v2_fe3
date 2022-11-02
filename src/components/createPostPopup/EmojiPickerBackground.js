@@ -54,7 +54,7 @@ const EmojiPickerBackground = ({
           maxLength="300"
           ref={textRef}
           value={text}
-          placeholder={`Bạn đang nghĩ gì ${user?.user.first_name}`}
+          placeholder={`Bạn đang nghĩ gì ${user?.first_name}`}
           className={`post_input ${type2 ? "input2" : ""}`}
           onChange={(e) => setText(e.target.value)}
           style={{

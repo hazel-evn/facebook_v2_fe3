@@ -78,7 +78,7 @@ const RegisterForm = ({ setVisible }) => {
 
   const registerSubmit = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3002/api/signup", {
+      const { data } = await axios.post("http://localhost:8000/register", {
         first_name,
         last_name,
         email,

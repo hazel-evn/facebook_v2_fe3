@@ -11,9 +11,9 @@ const LeftHonme = ({ user }) => {
   return (
     <div className="left_home scrollbar">
       <Link to="/profile" className="left_link hover1">
-        <img src={user?.user.picture} alt="" />
+        <img src={user?.picture} alt="" />
         <span>
-          {user?.user.first_name} {user?.user.last_name}
+          {user?.first_name} {user?.last_name}
         </span>
       </Link>
       {left.slice(0, 8).map((link, i) => (

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createPost = async (
   type,
-  backgroud,
+  background,
   text,
   images,
   user,
@@ -13,14 +13,14 @@ export const createPost = async (
       `${process.env.REACT_APP_BACKEND_URL}/createPost`,
       {
         type,
-        backgroud,
+        background,
         text,
         images,
         user,
       },
       {
         headers: {
-          Authorization: `Bereer  ${token}`,
+          Authorization: `Bearer  ${token}`,
         },
       }
     );

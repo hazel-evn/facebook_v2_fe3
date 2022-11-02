@@ -22,6 +22,7 @@ import UserMenu from "./userMenu";
 
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
+  console.log(user);
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showAllMenu, setshowAllMenu] = useState(false);
   const [showUserMenu, setshowUserMenu] = useState(false);
@@ -72,9 +73,9 @@ const Header = () => {
       </div>
       <div className="header_right">
         <Link to="/profile" className="profile_link hover1">
-          <img src={user?.user.picture} alt="" />
-          <span>{user?.user.first_name}</span>
-          <span>{user?.user.last_name}</span>
+          <img src={user?.picture} alt="" />
+          <span>{user?.first_name}</span>
+          <span>{user?.last_name}</span>
         </Link>
         <div
           className={`circle_icon hover1 ${showAllMenu && "active_header"}`}
