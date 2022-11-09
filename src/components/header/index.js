@@ -34,7 +34,6 @@ const Header = () => {
   ClickOutside(userMenu, () => {
     setshowUserMenu(false);
   });
-  console.log(user.user);
   return (
     <div className="header">
       <div className="header_left">

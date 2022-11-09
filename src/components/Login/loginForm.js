@@ -35,10 +35,13 @@ const LoginForm = ({ setVisible }) => {
 
   const loginForm = async () => {
     try {
-      const { data } = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
+        {
+          email,
+          password,
+        }
+      );
       console.log(data);
       setError("");
       setLoading(true);
