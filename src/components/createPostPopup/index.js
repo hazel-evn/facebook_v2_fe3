@@ -28,9 +28,11 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
         user.id,
         user.token
       );
-      setLoading(false);
-      setBackground("");
-      setText("");
+      if (res === 200) {
+        setText("");
+      } else {
+        console.log(res);
+      }
     }
   };
   return (
@@ -82,7 +84,6 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           onClick={() => {
             postSubmit();
           }}
-          disabled={loading}
         >
           {loading ? <PulseLoader color="#fff" size={5} /> : "Post"}
         </button>
