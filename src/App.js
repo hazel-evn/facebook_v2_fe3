@@ -5,6 +5,7 @@ import { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import CreatePostPopup from "./components/createPostPopup";
+import Post from "./components/post";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Profile from "./pages/profile";

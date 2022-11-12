@@ -7,6 +7,7 @@ import HomeRight from "../../components/home/right";
 import Stories from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
 import "./style.css";
+import Post from "../../components/post";
 
 function Home({ setPostVisible, posts }) {
   const { user } = useSelector((user) => ({ ...user }));
@@ -22,11 +23,11 @@ function Home({ setPostVisible, posts }) {
       <div className="home_middle">
         <Stories />
         <CreatePost user={user} setPostVisible={setPostVisible} />
-        {posts.map((post) => (
-          <div className="post" key={post._id}>
-            {post._id}
-          </div>
-        ))}
+        <div className="posts">
+          {posts.map((post) => (
+            <Post key={post._id} post={post} />
+          ))}
+        </div>
       </div>
       <HomeRight user={user} />
       {visible && <div className="card" ref={el}></div>}
