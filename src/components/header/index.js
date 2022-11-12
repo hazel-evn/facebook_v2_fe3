@@ -22,7 +22,6 @@ import UserMenu from "./userMenu";
 
 const Header = () => {
   const { user } = useSelector((user) => ({ ...user }));
-  console.log(user);
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showAllMenu, setshowAllMenu] = useState(false);
   const [showUserMenu, setshowUserMenu] = useState(false);
