@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import CreatePostPopup from "./components/createPostPopup";
 import Home from "./pages/home";
+import Activate from "./pages/home/activate";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
 import LoggedInRoutes from "./routes/loggedInRoutes";
@@ -23,6 +24,7 @@ function App() {
         <Route element={<LoggedInRoutes />}>
           <Route path="/" element={<Home setPostVisible={setPostVisible} />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/activate/:token" element={<Activate />} />
         </Route>
       </Routes>
     </div>
