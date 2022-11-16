@@ -1,21 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DisplayAccessibility from "./displayAccessibility";
 import HelpSupport from "./helpSupport";
 import SettingsPrivacy from "./settingsPrivacy";
+import {useDispatch} from "react-redux";
+import Cookies from "js-cookie";
 
 const UserMenu = ({ user }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(0);
+  const logout = () =>{
+    Cookies.set("user", "");
+    dispatch({
+      type:"LOGOUT"
+    })
+    navigate("/login");
+  }
   return (
     <div className="mmenu">
       {visible === 0 && (
         <div>
           <Link href="/profile" className="mmenu_header hover3">
-            <img src={user?.user.picture} alt="" />
+            <img src={user?.picture} alt="" />
             <div className="mmenu_col">
               <span>
-                {user?.user.first_name}
-                {user?.user.last_name}
+                {user?.first_name}
+                {user?.last_name}
               </span>
               <span>Xem hồ sơ của bạn</span>
             </div>
@@ -63,7 +74,7 @@ const UserMenu = ({ user }) => {
             </div>
           </div>
           <div className="mmenu_splitter"></div>
-          <div className="mmenu_item hover3">
+          <div className="mmenu_item hover3" onClick={() => {logout()}}>
             <div className="small_circle">
               <i className="logout_filled_icon"></i>
             </div>
