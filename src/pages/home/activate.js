@@ -12,7 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-function Activate({ setPostVisible }) { 
+function Activate({ setPostVisible }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
@@ -24,51 +24,56 @@ function Activate({ setPostVisible }) {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const {token} = useParams();
-  useEffect(() => { 
+  const { token } = useParams();
+  useEffect(() => {
     activateAccount();
-  }, [])
+  }, []);
   const activateAccount = async () => {
     try {
       setLoading(true);
-      const {data} = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/activate`,{token},{
-        headers:{
-          Authorization: `Bearer ${user.token}`
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/activate`,
+        { token },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         }
-      })
+      );
       setSuccess(data.message);
-      Cookies.set("user", JSON.stringify({...user, verified:true}))
+      Cookies.set("user", JSON.stringify({ ...user, verified: true }));
       dispatch({
-        type:"VERIFY", payload:true
+        type: "VERIFY",
+        payload: true,
       });
       setTimeout(() => {
         navigate("/");
-      }, 3000)
+      }, 3000);
     } catch (error) {
       setError(error.response.data.message);
       setTimeout(() => {
         navigate("/");
-      }, 3000)
+      }, 3000);
     }
-  }
+  };
   return (
     <div className="home">
-      {
-        success &&  <ActivateForm 
-        type="success"
-        header="Account verification succeded"
-        text={success}
-        loading={loading}
-      />
-      }
-       {
-        error &&  <ActivateForm 
-        type="error"
-        header="Account verification failed"
-        text={error}
-        loading={loading}
-      />
-      }
+      {success && (
+        <ActivateForm
+          type="success"
+          header="Account verification succeded"
+          text={success}
+          loading={loading}
+        />
+      )}
+      {error && (
+        <ActivateForm
+          type="error"
+          header="Account verification failed"
+          text={error}
+          loading={loading}
+        />
+      )}
       <Header />
       <LeftHonme user={user} />
       <div className="home_middle">

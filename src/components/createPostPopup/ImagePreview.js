@@ -1,42 +1,56 @@
-import React, { useRef } from "react";
-import EmojiPickerBackground from "./EmojiPickerBackground";
+import { useRef } from "react";
+import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
 
-const ImagePreview = ({
-  user,
+export default function ImagePreview({
   text,
-  textRef,
+  user,
   setText,
   images,
   setImages,
   setShowPrev,
-}) => {
+  setError,
+}) {
   const imageInputRef = useRef(null);
-  const handleImage = (e) => {
+  const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.onload = (readerEvent) => {
-        setImages((images) => [...images, readerEvent.target.result]);
-      };
+      console.log(img);
+      if (
+        img.type !== "image/jpeg" &&
+        img.type !== "image/png" &&
+        img.type !== "image/webp" &&
+        img.type !== "image/gif"
+      ) {
+        setError(
+          `${img.name} format is unsupported ! only Jpeg, Png, Webp, Gif are allowed.`
+        );
+        files = files.filter((item) => item.name !== img.name);
+        return;
+      } else if (img.size > 1024 * 1024) {
+        setError(`${img.name} size is too large max 5mb allowed.`);
+        files = files.filter((item) => item.name !== img.name);
+        return;
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = (readerEvent) => {
+          setImages((images) => [...images, readerEvent.target.result]);
+        };
+      }
     });
   };
   return (
     <div className="overflow_a scrollbar">
-      <EmojiPickerBackground
-        user={user}
-        text={text}
-        textRef={textRef}
-        setText={setText}
-        type2
-      />
+      <EmojiPickerBackgrounds text={text} user={user} setText={setText} type2 />
       <div className="add_pics_wrap">
         <input
           type="file"
+          name="img"
+          accept="image/jpeg,image/png,image/webp,image/gif"
           multiple
           hidden
           ref={imageInputRef}
-          onChange={handleImage}
+          onChange={handleImages}
         />
         {images && images.length ? (
           <div className="add_pics_inside1 p0">
@@ -52,7 +66,7 @@ const ImagePreview = ({
                 }}
               >
                 <i className="addPhoto_icon"></i>
-                Add Photos/Video
+                Add Photos/Videos
               </button>
             </div>
             <div
@@ -72,7 +86,7 @@ const ImagePreview = ({
                   : images.length === 3
                   ? "preview3"
                   : images.length === 4
-                  ? "preview4"
+                  ? "preview4 "
                   : images.length === 5
                   ? "preview5"
                   : images.length % 2 === 0
@@ -113,12 +127,10 @@ const ImagePreview = ({
           <div className="add_circle">
             <i className="phone_icon"></i>
           </div>
-          <div className="mobile_text">Add photo from your mobile device.</div>
+          <div className="mobile_text">Add phots from your mobile device.</div>
           <span className="addphone_btn">Add</span>
         </div>
       </div>
     </div>
   );
-};
-
-export default ImagePreview;
+}

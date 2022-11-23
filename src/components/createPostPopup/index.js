@@ -1,26 +1,29 @@
-import React, { useState, useRef } from "react";
-import { createPost } from "../../functions/post";
-import ClickOutside from "../../helpers/clickOutside";
-import AddToYourPost from "./AddToYourPost";
-import EmojiPickerBackground from "./EmojiPickerBackground";
-import ImagePreview from "./ImagePreview";
-import { PulseLoader } from "react-spinners";
+import { useRef, useState } from "react";
 import "./style.css";
-
-const CreatePostPopup = ({ user, setPostVisible }) => {
+import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
+import AddToYourPost from "./AddToYourPost";
+import ImagePreview from "./ImagePreview";
+import useClickOutside from "../../helpers/clickOutside";
+import { createPost } from "../../functions/post";
+import PulseLoader from "react-spinners/PulseLoader";
+import PostError from "./PostError";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
+import { uploadImages } from "../../functions/uploadImages";
+export default function CreatePostPopup({ user, setPostVisible }) {
   const popup = useRef(null);
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
-  ClickOutside(popup, () => {
+  useClickOutside(popup, () => {
     setPostVisible(false);
   });
   const postSubmit = async () => {
     if (background) {
       setLoading(true);
-      const res = await createPost(
+      const response = await createPost(
         null,
         background,
         text,
@@ -28,54 +31,115 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
         user.id,
         user.token
       );
-      if (res === 200) {
+      setLoading(false);
+      if (response === "ok") {
+        setBackground("");
         setText("");
+        setPostVisible(false);
       } else {
-        console.log(res);
+        setError(response);
       }
+    } else if (images && images.length) {
+      setLoading(true);
+      const postImages = images.map((img) => {
+        return dataURItoBlob(img);
+      });
+      const path = `${user.username}/post Images`;
+      let formData = new FormData();
+      formData.append("path", path);
+      postImages.forEach((images) => {
+        formData.append("file", images);
+      });
+      const response = await uploadImages(formData, path, user.token);
+
+      const res = await createPost(
+        null,
+        null,
+        text,
+        response,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (res === "ok") {
+        setText("");
+        setImages("");
+        setPostVisible(false);
+      } else {
+        setError(res);
+      }
+    } else if (text) {
+      setLoading(true);
+      const response = await createPost(
+        null,
+        null,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (response === "ok") {
+        setBackground("");
+        setText("");
+        setPostVisible(false);
+      } else {
+        setError(response);
+      }
+    } else {
+      console.log("nothing");
     }
   };
   return (
     <div className="blur">
       <div className="postBox" ref={popup}>
+        {error && <PostError error={error} setError={setError} />}
         <div className="box_header">
-          <div className="small_circle" onClick={() => setPostVisible(false)}>
+          <div
+            className="small_circle"
+            onClick={() => {
+              setPostVisible(false);
+            }}
+          >
             <i className="exit_icon"></i>
           </div>
           <span>Create Post</span>
         </div>
         <div className="box_profile">
-          <img src={user?.picture} alt="" className="box_profile_img" />
+          <img src={user.picture} alt="" className="box_profile_img" />
           <div className="box_col">
             <div className="box_profile_name">
-              {user?.first_name} {user?.last_name}
+              {user.first_name} {user.last_name}
             </div>
             <div className="box_privacy">
               <img src="../../../icons/public.png" alt="" />
               <span>Public</span>
-              <i className="arrowDown_icon "></i>
+              <i className="arrowDown_icon"></i>
             </div>
           </div>
         </div>
+
         {!showPrev ? (
-          <div>
-            <EmojiPickerBackground
+          <>
+            <EmojiPickerBackgrounds
               text={text}
+              user={user}
               setText={setText}
               showPrev={showPrev}
               setBackground={setBackground}
               background={background}
-              user={user}
             />
-          </div>
+          </>
         ) : (
           <ImagePreview
             text={text}
             user={user}
             setText={setText}
+            showPrev={showPrev}
             images={images}
             setImages={setImages}
             setShowPrev={setShowPrev}
+            setError={setError}
           />
         )}
         <AddToYourPost setShowPrev={setShowPrev} />
@@ -84,12 +148,11 @@ const CreatePostPopup = ({ user, setPostVisible }) => {
           onClick={() => {
             postSubmit();
           }}
+          disabled={loading}
         >
           {loading ? <PulseLoader color="#fff" size={5} /> : "Post"}
         </button>
       </div>
     </div>
   );
-};
-
-export default CreatePostPopup;
+}
