@@ -1,12 +1,8 @@
-
 import MenuItem from "./menuItem";
 
-export default function PostMenu({
- 
-  imagesLength
-}) {
+export default function PostMenu({ imagesLength, test, user }) {
   return (
-    <ul className="post_menu" >
+    <ul className="post_menu">
       {test && <MenuItem icon="pin_icon" title="Pin Post" />}
       <MenuItem
         icon="save_icon"
@@ -25,7 +21,9 @@ export default function PostMenu({
       {imagesLength && (
         <MenuItem icon="fullscreen_icon" title="Enter Fullscreen" />
       )}
-      {test && <MenuItem img="../../../icons/lock.png" title="Edit audience" />}
+      {test && (
+        <MenuItem img="../../../../icons/lock.png" title="Edit audience" />
+      )}
       {test && (
         <MenuItem
           icon="turnOffNotifications_icon"
