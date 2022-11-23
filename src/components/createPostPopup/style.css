@@ -368,3 +368,28 @@
   text-align: center;
   height: 360px;
 }
+/* post error */
+.postError {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--bg-primary);
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  gap: 10px;
+  color: #b94a48;
+  animation: anim 0.6s;
+}
+@keyframes anim {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
