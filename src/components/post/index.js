@@ -16,7 +16,7 @@ export default function Post({ post }) {
           <img src={post.user.picture} />
           <div className="header_col">
             <div className="post_profile_name">
-              Duong van chat
+              {post.user.first_name} {post.user.last_name}
               <div className="updated_p">
                 {post.type === "profilePicture" &&
                   `updated ${
@@ -92,7 +92,7 @@ export default function Post({ post }) {
         </div>
       </div>
       <div className="post_actions">
-        <ReactsPopup />
+        {/* <ReactsPopup /> */}
         <div
           className="post_action hover1"
           onMouseOver={() => {
