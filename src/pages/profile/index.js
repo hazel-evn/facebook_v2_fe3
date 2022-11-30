@@ -1,16 +1,15 @@
 import React from "react";
 import CreatePost from "../../components/createPost";
 import Header from "../../components/header";
-import Post from "../../components/post";
 import GridPosts from "./gridPost";
 import "./index.css";
 import ProfileMenu from "./profileMenu";
 import ProfielPictureInfos from "./ProfilePicture";
 import PplYouMayKnow from "./youMayknow";
 import { useSelector } from "react-redux";
+import Post from "../../components/post";
 
-function Profile() {
-  const { user } = useSelector((state) => ({ ...state }));
+function Profile({ user, post }) {
   return (
     <div className="profile">
       <Header page="profile" />
@@ -38,7 +37,9 @@ function Profile() {
               <div className="profile_right">
                 <CreatePost user={user} />
                 <GridPosts />
-                <div className="posts">{/* <Post /> */}</div>
+                <div className="posts">
+                  {/* <Post post={post} user={user} /> */}
+                </div>
               </div>
             </div>
           </div>
