@@ -3,7 +3,6 @@ import MenuItem from "./menuItem";
 
 export default function PostMenu({ imagesLength, postUserId, userId }) {
   const [test, setTest] = useState(postUserId === userId ? true : false);
-  console.log(test);
   return (
     <ul className="post_menu">
       <MenuItem icon="pin_icon" title="Pin Post" />

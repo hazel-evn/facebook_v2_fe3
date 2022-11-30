@@ -74,7 +74,10 @@ function App() {
             path="/"
             element={<Home setPostVisible={setPostVisible} posts={posts} />}
           />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile/:username"
+            element={<Profile user={user} setPostVisible={setPostVisible} />}
+          />
           <Route path="/activate/:token" element={<Activate />} />
         </Route>
       </Routes>
