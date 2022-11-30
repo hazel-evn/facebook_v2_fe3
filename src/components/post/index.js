@@ -5,7 +5,9 @@ import ReactsPopup from "./ReactsPopup";
 import CreateComment from "./Createcomnent";
 import PostMenu from "./postMenu";
 import Moment from "react-moment";
-export default function Post({ post }) {
+import { useState } from "react";
+export default function Post({ post, user }) {
+  const [showMenu, setShowMenu] = useState(false);
   return (
     <div className="post">
       <div className="post_header">
@@ -30,13 +32,16 @@ export default function Post({ post }) {
             </div>
             <div className="post_profile_privacy_date">
               <Moment fromNow interval={30}>
-                {post.createAt}
+                {post.createdAt}
               </Moment>
               <Public color="#828387" />
             </div>
           </div>
         </Link>
-        <div className="post_header_right hover1">
+        <div
+          className="post_header_right hover1"
+          onClick={() => setShowMenu((prev) => !prev)}
+        >
           <Dots color="#828387" />
         </div>
       </div>
@@ -118,7 +123,14 @@ export default function Post({ post }) {
         <div className="comments_order"></div>
         <CreateComment />
       </div>
-      <PostMenu />
+      {showMenu && (
+        <PostMenu
+          userId={user.id}
+          postUserId={post.user._id}
+          imagesLength={post?.images?.length}
+          setShowMenu={setShowMenu}
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,12 @@
+import { useState } from "react";
 import MenuItem from "./menuItem";
 
-export default function PostMenu({ imagesLength, test, user }) {
+export default function PostMenu({ imagesLength, postUserId, userId }) {
+  const [test, setTest] = useState(postUserId === userId ? true : false);
+  console.log(test);
   return (
     <ul className="post_menu">
-      {test && <MenuItem icon="pin_icon" title="Pin Post" />}
+      <MenuItem icon="pin_icon" title="Pin Post" />
       <MenuItem
         icon="save_icon"
         title="Save Post"
