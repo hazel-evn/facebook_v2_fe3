@@ -14,10 +14,12 @@ export default function Post({ post, user }) {
   const [showMenu, setShowMenu] = useState(false);
   const [reacts, setReacts] = useState([]);
   const [check, setCheck] = useState();
+  const [total, setTotal] = useState();
   const getPostReact = async () => {
     const res = await getReacts(post._id, user.token);
     setReacts(res.reacts);
     setCheck(res.check);
+    setTotal(res.total);
   };
   useEffect(() => {
     getPostReact();
@@ -30,7 +32,6 @@ export default function Post({ post, user }) {
       setCheck(type);
     }
   };
-  console.log(reacts);
   return (
     <div className="post">
       <div className="post_header">
@@ -111,8 +112,18 @@ export default function Post({ post, user }) {
 
       <div className="post_infos">
         <div className="reacts_count">
-          <div className="reacts_count_imgs"></div>
-          <div className="reacts_count_num"></div>
+          <div className="reacts_count_imgs">
+            {reacts &&
+              reacts
+                .slice(0, 3)
+                .map(
+                  (react) =>
+                    react.count > 0 && (
+                      <img src={`../../../reacts/${react.react}.svg`} alt="" />
+                    )
+                )}
+          </div>
+          <div className="reacts_count_num">{total > 0 && total}</div>
         </div>
         <div className="to_right">
           <div className="comments_count">13 comments</div>
