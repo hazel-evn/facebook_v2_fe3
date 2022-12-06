@@ -7,6 +7,7 @@ import PostMenu from "./postMenu";
 import Moment from "react-moment";
 import { useState } from "react";
 export default function Post({ post, user }) {
+  const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   return (
     <div className="post">
@@ -97,14 +98,18 @@ export default function Post({ post, user }) {
         </div>
       </div>
       <div className="post_actions">
-        {/* <ReactsPopup /> */}
+        <ReactsPopup visible={visible} setVisible={setVisible} />
         <div
           className="post_action hover1"
           onMouseOver={() => {
-            setTimeout(() => {}, 500);
+            setTimeout(() => {
+              setVisible(true);
+            }, 500);
           }}
           onMouseLeave={() => {
-            setTimeout(() => {}, 500);
+            setTimeout(() => {
+              setVisible(false);
+            }, 500);
           }}
         >
           <i className="like_icon"></i>
@@ -121,7 +126,7 @@ export default function Post({ post, user }) {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComment />
+        <CreateComment user={user} />
       </div>
       {showMenu && (
         <PostMenu

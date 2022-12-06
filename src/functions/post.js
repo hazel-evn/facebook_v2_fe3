@@ -28,3 +28,22 @@ export const createPost = async (
     return error.response.data.message;
   }
 };
+export const reactPost = async (postId, react, token) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/reactPost`,
+      {
+        postId,
+        react,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return "ok";
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

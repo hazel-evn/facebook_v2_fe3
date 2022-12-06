@@ -1,28 +1,90 @@
+import { useState, useEffect, useRef } from "react";
+import Picker from "emoji-picker-react";
+export default function CreateComment({ user }) {
+  const [picker, setPicker] = useState(false);
+  const [text, setText] = useState("");
+  const [cmtImage, setCmtImage] = useState("");
+  const [error, setError] = useState("");
+  const [cursorPosition, setCursorPosition] = useState();
+  const textRef = useRef(null);
+  const imgInput = useRef(null);
+  useEffect(() => {
+    textRef.current.selectionEnd = cursorPosition;
+  }, [cursorPosition]);
 
-export default function CreateComment() {
- 
+  const handleEmoji = (e, { emoji }) => {
+    const ref = textRef.current;
+    ref.focus();
+    const start = text.substring(0, ref.selectionStart);
+    const end = text.substring(ref.selectionStart);
+    const newText = start + emoji + end;
+    setText(newText);
+    setCursorPosition(start.length + emoji.length);
+  };
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png" &&
+      file.type !== "image/webp" &&
+      file.type !== "image/gif"
+    ) {
+      setError(`${file.name} nay khong duoc ho tro`);
+      return;
+    } else if (file.size > 1024 * 1024 * 5) {
+      setError(`${file.name} qua lon 5mb allowed`);
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      setCmtImage(event.target.result);
+    };
+  };
   return (
     <div className="create_comment_wrap">
       <div className="create_comment">
-        <img src="https://tse4.mm.bing.net/th?id=OIP.jODk4DVXLWGFKSW6r9NqAAHaE8&pid=Api&P=0}" alt="" />
+        <img src={user?.picture} alt="" />
         <div className="comment_input_wrap">
+          <div className="comment_emoji_picker">
+            {picker && <Picker onEmojiClick={handleEmoji} />}
+          </div>
+
           <input
             type="file"
             hidden
-            accept="image/jpeg,image/png,image/gif,image/webp"  
+            ref={imgInput}
+            accept="image/jpeg,image/png,image/gif,image/webp"
+            onChange={handleImage}
           />
-        
+          {error && (
+            <div className="postError comment_error">
+              <div className="postError_error">{error}</div>
+              <button className="blue_btn" onClick={() => setError("")}>
+                Try again
+              </button>
+            </div>
+          )}
+
           <input
-            type="text"         
-            placeholder="Write a comment..."
+            type="text"
+            ref={textRef}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Để lại bình luận"
           />
+
           <div
             className="comment_circle_icon hover2"
+            onClick={() => {
+              setPicker((prev) => !prev);
+            }}
           >
             <i className="emoji_icon"></i>
           </div>
           <div
             className="comment_circle_icon hover2"
+            onClick={() => imgInput.current.click()}
           >
             <i className="camera_icon"></i>
           </div>
@@ -34,15 +96,14 @@ export default function CreateComment() {
           </div>
         </div>
       </div>
-      
+      {cmtImage && (
         <div className="comment_img_preview">
-          <img src="https://tse4.mm.bing.net/th?id=OIP.jODk4DVXLWGFKSW6r9NqAAHaE8&pid=Api&P=0" alt="" />
-          <div
-            className="small_white_circle"
-          >
+          <img src={cmtImage} alt="" />
+          <div className="small_white_circle" onClick={() => setCmtImage("")}>
             <i className="exit_icon"></i>
           </div>
         </div>
+      )}
     </div>
   );
 }

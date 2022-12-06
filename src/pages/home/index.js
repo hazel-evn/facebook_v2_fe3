@@ -8,19 +8,25 @@ import Stories from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
 import "./style.css";
 import Post from "../../components/post";
+import { useEffect } from "react";
 
 function Home({ setPostVisible, posts }) {
   const { user } = useSelector((user) => ({ ...user }));
   const [visible, setVisible] = useState(true);
+  const middle = useRef(null);
+  const [height, setHeight] = useState();
+  useEffect(() => {
+    setHeight(middle.current.clientHeight);
+  }, []);
   const el = useRef(null);
   ClickOutside(el, () => {
     setVisible(false);
   });
   return (
-    <div className="home">
+    <div className="home" style={{ height: `${height + 100}px` }}>
       <Header />
       <LeftHonme user={user} />
-      <div className="home_middle">
+      <div className="home_middle" ref={middle}>
         <Stories />
         <CreatePost user={user} setPostVisible={setPostVisible} />
         <div className="posts">
