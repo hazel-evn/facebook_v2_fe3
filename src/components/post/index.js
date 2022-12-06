@@ -14,7 +14,7 @@ export default function Post({ post, user }) {
   const [showMenu, setShowMenu] = useState(false);
   const [reacts, setReacts] = useState([]);
   const [check, setCheck] = useState();
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const getPostReact = async () => {
     const res = await getReacts(post._id, user.token);
     setReacts(res.reacts);
@@ -28,8 +28,25 @@ export default function Post({ post, user }) {
     reactPost(post._id, type, user.token);
     if (check === type) {
       setCheck();
+      let index = reacts.findIndex((x) => x.react == check);
+      if (index !== -1) {
+        setReacts([...reacts, (reacts[index].count = --reacts[index].count)]);
+        setTotal((prev) => --prev);
+      }
     } else {
       setCheck(type);
+      let index = reacts.findIndex((x) => x.react == type);
+      let index1 = reacts.findIndex((x) => x.react == check);
+      if (index !== -1) {
+        setReacts([...reacts, (reacts[index].count = ++reacts[index].count)]);
+        setTotal((prev) => ++prev);
+        console.log(reacts);
+      }
+      if (index1 !== -1) {
+        setReacts([...reacts, (reacts[index1].count = --reacts[index1].count)]);
+        setTotal((prev) => --prev);
+        console.log(reacts);
+      }
     }
   };
   return (
@@ -116,6 +133,9 @@ export default function Post({ post, user }) {
             {reacts &&
               reacts
                 .slice(0, 3)
+                .sort((a, b) => {
+                  return b.count - a.count;
+                })
                 .map(
                   (react) =>
                     react.count > 0 && (
@@ -154,7 +174,7 @@ export default function Post({ post, user }) {
             <img
               src={`../../../reacts/${check}.svg`}
               className="small_react"
-              style={{ width: "18px" }}
+              style={{ width: "19px" }}
             />
           ) : (
             <i className="like_icon"></i>
