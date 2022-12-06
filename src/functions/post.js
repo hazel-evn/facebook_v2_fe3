@@ -29,8 +29,9 @@ export const createPost = async (
   }
 };
 export const reactPost = async (postId, react, token) => {
+  console.log(token);
   try {
-    const { data } = await axios.post(
+    const { data } = await axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/reactPost`,
       {
         postId,
@@ -43,6 +44,21 @@ export const reactPost = async (postId, react, token) => {
       }
     );
     return "ok";
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const getReacts = async (postId, token) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/getReacts/${postId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
   } catch (error) {
     return error.response.data.message;
   }

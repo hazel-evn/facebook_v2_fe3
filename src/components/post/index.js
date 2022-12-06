@@ -6,9 +6,23 @@ import CreateComment from "./Createcomnent";
 import PostMenu from "./postMenu";
 import Moment from "react-moment";
 import { useState } from "react";
+import { useEffect } from "react";
+import { getReacts } from "../../functions/post";
+import { useSelector } from "react-redux";
 export default function Post({ post, user }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [reacts, setReacts] = useState([]);
+  const [check, setCheck] = useState();
+  const getPostReact = async () => {
+    const res = await getReacts(post._id, user.token);
+    setReacts(res.reacts);
+    setCheck(res.check);
+  };
+  useEffect(() => {
+    getPostReact();
+  }, [post]);
+  console.log(reacts);
   return (
     <div className="post">
       <div className="post_header">
@@ -98,7 +112,11 @@ export default function Post({ post, user }) {
         </div>
       </div>
       <div className="post_actions">
-        <ReactsPopup visible={visible} setVisible={setVisible} />
+        <ReactsPopup
+          visible={visible}
+          setVisible={setVisible}
+          postId={post._id}
+        />
         <div
           className="post_action hover1"
           onMouseOver={() => {
@@ -112,7 +130,15 @@ export default function Post({ post, user }) {
             }, 500);
           }}
         >
-          <i className="like_icon"></i>
+          {check ? (
+            <img
+              src={`../../../reacts/${check}.svg`}
+              className="small_react"
+              style={{ width: "18px" }}
+            />
+          ) : (
+            <i className="like_icon"></i>
+          )}
           <span>Like</span>
         </div>
         <div className="post_action hover1">
