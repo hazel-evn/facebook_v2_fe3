@@ -17,6 +17,10 @@ export default function Post({ post, user, profile }) {
   const [check, setCheck] = useState();
   const [total, setTotal] = useState(0);
   const [comments, setComments] = useState([]);
+  const [count, setCount] = useState(1);
+  const showMore = () => {
+    setCount((prev) => prev + 1);
+  };
   const getPostReact = async () => {
     const res = await getReacts(post._id, user.token);
     setReacts(res.reacts);
@@ -27,7 +31,7 @@ export default function Post({ post, user, profile }) {
     getPostReact();
   }, [post]);
   useEffect(() => {
-    setComments(post?.comments.reverse());
+    setComments(post?.comments);
   }, [post]);
   console.log("!2", comments);
   const reactHandler = async (type) => {
@@ -152,7 +156,7 @@ export default function Post({ post, user, profile }) {
           <div className="reacts_count_num">{total > 0 && total}</div>
         </div>
         <div className="to_right">
-          <div className="comments_count">13 comments</div>
+          <div className="comments_count">{comments.length} comments</div>
           <div className="share_count">1 share</div>
         </div>
       </div>
@@ -218,11 +222,22 @@ export default function Post({ post, user, profile }) {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComment user={user} postId={post._id} />
+        <CreateComment
+          user={user}
+          postId={post._id}
+          setComments={setComments}
+          setCount={setCount}
+        />
         {comments &&
           comments
-            .slice(0, 3)
+            .sort((a, b) => new Date(b.commentAt) - new Date(a.commentAt))
+            .slice(0, count)
             .map((comment, i) => <Comment comment={comment} key={i} />)}
+        {count < comments.length && (
+          <div className="view_comments" onClick={() => showMore()}>
+            Xem thêm bình luận
+          </div>
+        )}
       </div>
       {showMenu && (
         <PostMenu
