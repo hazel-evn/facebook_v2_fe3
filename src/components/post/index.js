@@ -9,12 +9,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getReacts, reactPost } from "../../functions/post";
 import { useSelector } from "react-redux";
-export default function Post({ post, user }) {
+import Comment from "./Comment";
+export default function Post({ post, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [reacts, setReacts] = useState([]);
   const [check, setCheck] = useState();
   const [total, setTotal] = useState(0);
+  const [comments, setComments] = useState([]);
   const getPostReact = async () => {
     const res = await getReacts(post._id, user.token);
     setReacts(res.reacts);
@@ -24,6 +26,10 @@ export default function Post({ post, user }) {
   useEffect(() => {
     getPostReact();
   }, [post]);
+  useEffect(() => {
+    setComments(post?.comments.reverse());
+  }, [post]);
+  console.log("!2", comments);
   const reactHandler = async (type) => {
     reactPost(post._id, type, user.token);
     if (check === type) {
@@ -213,6 +219,10 @@ export default function Post({ post, user }) {
       <div className="comments_wrap">
         <div className="comments_order"></div>
         <CreateComment user={user} postId={post._id} />
+        {comments &&
+          comments
+            .slice(0, 3)
+            .map((comment, i) => <Comment comment={comment} key={i} />)}
       </div>
       {showMenu && (
         <PostMenu
